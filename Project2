@@ -1,0 +1,298 @@
+mysql> source mailOrder2Queries.sql;
+
+## Describe CUSTOMERS
+
+describe CUSTOMERS;
+
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| CNO    | varchar(4)  | NO   | PRI | NULL    |       |
+| CNAME  | varchar(20) | NO   |     | NULL    |       |
+| STREET | varchar(20) | YES  |     | NULL    |       |
+| ZIP    | varchar(5)  | YES  | MUL | NULL    |       |
+| PHONE  | varchar(12) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+## Select all from CUSTOMERS
+
+select * from CUSTOMERS;
+
++------+---------+------------------+-------+--------------+
+| CNO  | CNAME   | STREET           | ZIP   | PHONE        |
++------+---------+------------------+-------+--------------+
+| 1111 | Charles | 123 Main St.     | 67226 | 316-636-5555 |
+| 2222 | Bertram | 237 Ash Avenue   | 67226 | 316-689-5555 |
+| 3333 | Barbara | 111 Inwood St.   | 60606 | 316-111-1234 |
+| 4444 | Will    | 111 Kenwood St.  | 54444 | 416-111-1234 |
+| 5555 | Bill    | 211 Marlwood St. | 28408 | 416-111-1235 |
+| 6666 | Keely   | 211 Pinewood St. | 28411 | 416-111-1235 |
+| 7777 | Maera   | 211 Marlwood St. | 28408 | 416-111-1235 |
++------+---------+------------------+-------+--------------+
+7 rows in set (0.00 sec)
+
+## Describe EMPLOYEES
+
+describe EMPLOYEES;
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ENO   | varchar(4)  | NO   | PRI | NULL    |       |
+| ENAME | varchar(20) | NO   |     | NULL    |       |
+| ZIP   | varchar(5)  | YES  | MUL | NULL    |       |
+| HDATE | date        | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+## Select all from EMPLOYEES
+
+select * from EMPLOYEES;
+
++------+--------+-------+------------+
+| ENO  | ENAME  | ZIP   | HDATE      |
++------+--------+-------+------------+
+| 1000 | Jones  | 67226 | 1995-12-12 |
+| 1001 | Smith  | 60606 | 1992-01-01 |
+| 1002 | Brown  | 50302 | 1994-09-01 |
+| 1003 | Green  | 28411 | 2002-09-01 |
+| 1004 | Purple | 28411 | 2003-01-01 |
++------+--------+-------+------------+
+5 rows in set (0.00 sec)
+
+
+## Describe ZIPCODES
+
+describe ZIPCODES;
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ZIP   | varchar(5)  | NO   | PRI | NULL    |       |
+| CITY  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+## Select all from ZIPCODES
+
+select * from ZIPCODES;
+
++-------+-------------+
+| ZIP   | CITY        |
++-------+-------------+
+| 28408 | Wilmington  |
+| 28411 | Wilmington  |
+| 50302 | Kansas City |
+| 54444 | Columbia    |
+| 60606 | Fort Dodge  |
+| 61111 | Fort Hays   |
+| 66002 | Liberal     |
+| 67226 | Wichita     |
++-------+-------------+
+8 rows in set (0.00 sec)
+
+
+## Describe ORDERS
+
+describe ORDERS;
+
++----------+------------+------+-----+---------+-------+
+| Field    | Type       | Null | Key | Default | Extra |
++----------+------------+------+-----+---------+-------+
+| ONO      | varchar(4) | NO   | PRI | NULL    |       |
+| CNO      | varchar(4) | YES  | MUL | NULL    |       |
+| ENO      | varchar(4) | YES  | MUL | NULL    |       |
+| RECEIVED | date       | YES  |     | NULL    |       |
+| SHIPPED  | date       | YES  |     | NULL    |       |
++----------+------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+## Select all from ORDERS
+
+select * from ORDERS;
+
++------+------+------+------------+------------+
+| ONO  | CNO  | ENO  | RECEIVED   | SHIPPED    |
++------+------+------+------------+------------+
+| 1020 | 1111 | 1000 | 1994-12-10 | 1994-12-12 |
+| 1021 | 1111 | 1000 | 1995-01-12 | 1995-01-15 |
+| 1022 | 2222 | 1001 | 1995-02-13 | 1995-02-20 |
+| 1023 | 3333 | 1000 | 2003-02-15 | NULL       |
+| 1024 | 4444 | 1000 | 2003-02-15 | 2003-02-16 |
+| 1025 | 5555 | 1000 | 2003-02-15 | 2003-02-16 |
++------+------+------+------------+------------+
+6 rows in set (0.00 sec)
+
+## Describe ODETAILS
+
+describe ODETAILS;
+
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| ONO   | varchar(4)   | NO   | PRI | NULL    |       |
+| PNO   | varchar(5)   | NO   | PRI | NULL    |       |
+| QTY   | decimal(2,0) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+## Select all from ODETAILS
+
+select * from ODETAILS;
+
++------+-------+------+
+| ONO  | PNO   | QTY  |
++------+-------+------+
+| 1020 | 10506 |    1 |
+| 1020 | 10508 |    2 |
+| 1020 | 10509 |    3 |
+| 1020 | 10800 |    1 |
+| 1021 | 10506 |    7 |
+| 1021 | 10601 |    4 |
+| 1022 | 10601 |    1 |
+| 1022 | 10701 |    1 |
+| 1023 | 10506 |    2 |
+| 1023 | 10800 |    1 |
+| 1023 | 10900 |    1 |
+| 1024 | 10506 |   12 |
+| 1025 | 10601 |    2 |
++------+-------+------+
+13 rows in set (0.00 sec)
+
+
+## Describe PARTS
+
+describe PARTS;
+
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| PNO     | varchar(5)   | NO   | PRI | NULL    |       |
+| PNAME   | varchar(20)  | NO   |     | NULL    |       |
+| QOH     | decimal(3,0) | YES  |     | NULL    |       |
+| PRICE   | decimal(4,2) | YES  |     | NULL    |       |
+| R_LEVEL | decimal(2,0) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+## Select all from PARTS
+
+select * from PARTS;
+
++-------+----------------------+------+-------+---------+
+| PNO   | PNAME                | QOH  | PRICE | R_LEVEL |
++-------+----------------------+------+-------+---------+
+| 10506 | Land Before Time I   |  200 | 19.99 |      20 |
+| 10507 | Land Before Time II  |  156 | 19.99 |      20 |
+| 10508 | Land Before Time III |  190 | 19.99 |      20 |
+| 10509 | Land Before Time IV  |   60 | 19.99 |      20 |
+| 10601 | Sleeping Beauty      |  300 | 24.99 |      20 |
+| 10701 | When Harry Met Sally |  120 | 19.99 |      20 |
+| 10800 | Dirty Harry          |  140 | 14.99 |      30 |
+| 10900 | Dr. Zhivago          |  100 | 24.99 |      30 |
+| 10901 | A Star is Born       |  100 |  4.99 |      30 |
+| 10902 | Star Wars            |  500 | 24.99 |      30 |
+| 10903 | Lord of the Rings    |  100 | 34.99 |      30 |
++-------+----------------------+------+-------+---------+
+11 rows in set (0.00 sec)
+
+
+
+## 1.) Get the names of customers who have ordered parts ONLY from employees who live in Wichita.
+
+from ORDERS as o, CUSTOMERS as c, EMPLOYEES as e, ZIPCODES as z
+where o.CNO = c.CNO and o.ENO = e.ENO and e.ZIP = z.ZIP
+and CITY = "Wichita";
+
++---------+
+| CNAME   |
++---------+
+| Charles |
+| Charles |
+| Barbara |
+| Will    |
+| Bill    |
++---------+
+5 rows in set (0.00 sec)
+
+## 2.) Get the names of parts that have been ordered the most (i.e. top selling parts), based on numbers (quantity) sold.
+
+select PNAME, sum(QTY) as TOTAL_ORDERS
+from PARTS natural join ODETAILS
+group by PNO
+order by TOTAL_ORDERS desc
+limit 3;
+
++---------------------+--------------+
+| PNAME               | TOTAL_ORDERS |
++---------------------+--------------+
+| Land Before Time I  |           22 |
+| Sleeping Beauty     |            7 |
+| Land Before Time IV |            3 |
++---------------------+--------------+
+3 rows in set (0.00 sec)
+
+## 3.) Get the average waiting time, i.e. difference between date ordered and date shipped, for all orders in number of days.
+
+select avg(WAIT_TIME) as AVG_WAIT_TIME
+from (select datediff(SHIPPED,RECEIVED) as WAIT_TIME
+from ORDERS where SHIPPED is not null) as WT;
+
++---------------+
+| AVG_WAIT_TIME |
++---------------+
+|        2.8000 |
++---------------+
+1 row in set (0.01 sec)
+
+## 4.) Decrease by 15 percent the prices of those parts that cost more than the average price of all parts.
+
+update PARTS set PARTS.PRICE = (PRICE*0.85) 
+where PARTS.PRICE > (select avg(PRICE) from 
+(select * from PARTS) as AVG_PRICE);
+
+Query OK, 4 rows affected, 4 warnings (0.00 sec)
+Rows matched: 4  Changed: 4  Warnings: 4
+
+## 5.) Transfer all the orders belonging to the employee with eno=1000 to the employee with eno = 1001.
+
+update ORDERS set ORDERS.ENO = '1001'
+where ORDERS.ENO = '1000';
+
+Query OK, 5 rows affected (0.01 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+## 6.) Delete from the customer table all customers who have placed fewer than two orders in the last two years.
+
+delete from CUSTOMERS
+where CNO in 
+(select * from
+(select CNO from CUSTOMERS natural left join ORDERS
+group by CNO
+having count(CNO) < 2) as c);
+
+Query OK, 6 rows affected (0.02 sec)
+
+## 7.) Increase the price of those parts by 10% whose total quantity sold is greater than the average quantity sold for all parts for which orders have been placed.
+
+update PARTS
+set PARTS.PRICE = (PRICE * 1.1)
+where PARTS.PNO in
+(select a.PNO from
+(select PNO, sum(QTY) as TOTAL
+from ODETAILS
+group by PNO) as a
+where a.TOTAL > 
+(select avg(TOTAL) from
+(select PNO, sum(QTY) as TOTAL
+from ODETAILS
+group by PNO) as T))
+;
+
+Query OK, 2 rows affected, 2 warnings (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 2
+
+mysql> notee;
